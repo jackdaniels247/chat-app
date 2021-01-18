@@ -26,11 +26,11 @@ const Signin = () => {
    
     }
     const onFacebookSignIn=()=>{
-    signInWithProvider(new firebase.auth.FacebookAuthProvider);
+    signInWithProvider(new firebase.auth.FacebookAuthProvider());
     }
 
     const onGoogleSignIn=()=>{
-    signInWithProvider(new firebase.auth.GoogleAuthProvider);
+    signInWithProvider(new firebase.auth.GoogleAuthProvider());
     }
 
     return (
