@@ -32,7 +32,7 @@ const Home = () => {
                 </Route>
             </Switch>
             <Route>
-                {isDesktop && 
+                {isExact && 
                 <Col xs={24} md={16} className='h-100'>
                 <h6 className='text-center mt-page'>Please Select Chat</h6>
                 </Col>
