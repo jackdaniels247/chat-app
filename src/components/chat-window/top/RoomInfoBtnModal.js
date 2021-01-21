@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{memo} from 'react'
 import { Button, Modal } from 'rsuite';
 import { useCurrentroom } from '../../../context/CurrentRoom.context'
 import { useModuleState } from '../../../misc/custom-hooks';
@@ -9,7 +9,7 @@ const RoomInfoBtnModal = () => {
     const name =useCurrentroom(v=>v.name);
     const {isOpen,open,close} =useModuleState();
     return (
-        <div>
+        <>
             <Button appearance='link' className='px-0' onClick={open} >
                 Room Information
             </Button>
@@ -29,8 +29,8 @@ const RoomInfoBtnModal = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
-        </div>
+        </>
     )
 }
 
-export default RoomInfoBtnModal
+export default memo(RoomInfoBtnModal)
