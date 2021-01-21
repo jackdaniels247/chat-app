@@ -15,6 +15,7 @@ function assembleMsg(profile,chatId){
             ...(profile.avatar?{avatar:profile.avatar}:{}),
             
         },
+        
         createdAt:firebase.database.ServerValue.TIMESTAMP
     }
 }
@@ -38,6 +39,7 @@ setInput(value);
             return;
         }
         const msgData=assembleMsg(profile,chatId);
+        msgData.text=input;
 
         const updates={};
 
