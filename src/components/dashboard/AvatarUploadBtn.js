@@ -5,6 +5,7 @@ import { useModuleState } from '../../misc/custom-hooks';
 import { database, storage } from '../../misc/firebase';
 import { useProfile } from '../../context/ProfileContext';
 import ProfileAvatar from './ProfileAvatar';
+import {getUserUpdate} from '../../misc/helper'
 
 const AvatarUploadBtn = () => {
     const {isOpen, open, close}= useModuleState();
@@ -57,8 +58,10 @@ const AvatarUploadBtn = () => {
                 cacheControl:`public,max-age=${3600*24*3}`
             })
             const downloadUrl= await uploadAvatarResult.ref.getDownloadURL();
-            const userAvatarRef=database.ref(`/profiles/${profile.uid}`).child('avatar');
-            userAvatarRef.set(downloadUrl);
+
+            const updates= await getUserUpdate(profile.uid,'avatar',downloadUrl,database);
+           
+            await database.ref().update(updates);
 
             Alert.info('Avatar has been uploaded',4000);
             setIsLoading(false);
