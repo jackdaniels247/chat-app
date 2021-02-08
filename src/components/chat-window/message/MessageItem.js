@@ -1,13 +1,25 @@
 import React from 'react'
+import { Button } from 'rsuite';
 import TimeAgo from 'timeago-react';
+import { useCurrentroom } from '../../../context/CurrentRoom.context';
+import { auth } from '../../../misc/firebase';
 import ProfileAvatar from '../../dashboard/ProfileAvatar';
  import PresenceDot from '../../PresenceDot';
 import ProfileBtnModal from './ProfileBtnModal';
 
-const MessageItem = ({message}) => {
+const MessageItem = ({message,handleAdmin}) => {
 
 
     const {author, createdAt, text}=message;
+
+    const isAdmin= useCurrentroom(v=>v.isAdmin);
+    const admins=useCurrentroom(v=>v.admins);
+
+    const isMsgAuthAdmin= admins.includes(author.uid);
+
+    const isAuthor= auth.currentUser.uid===author.uid;
+
+    const canGrantAdmin= isAdmin && !isAuthor;
 
     return (
         <li className='padded mb-1'>
@@ -18,7 +30,13 @@ const MessageItem = ({message}) => {
             <ProfileAvatar src={author.avatar} name={author.name} className='ml-1' size='xs' />
 
            
-            <ProfileBtnModal profile={author} appearance='link' className='p-0 ml-1 text-black'/>
+            <ProfileBtnModal profile={author} appearance='link' className='p-0 ml-1 text-black'>
+{canGrantAdmin &&
+<Button onClick={()=>handleAdmin(author.uid)} color='blue' block>
+{isMsgAuthAdmin ? 'Remove Admin' :'Make Admin'}
+</Button>
+}
+                </ProfileBtnModal>
 
             <TimeAgo className='font-normal text-black-45 ml-2'
   datetime={createdAt}/>
