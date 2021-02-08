@@ -58,7 +58,7 @@ update('description',newDesc);
                 componentClass='textarea'
                 rows={5}
                 initialValue={description}
-                emptyMsg='description cannot be empty'
+                emptymsg='description cannot be empty'
                 wrapperClassName='mt-3'
                 onSave={onDescSave}
                 />

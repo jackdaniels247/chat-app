@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { Alert, Button, ControlLabel, Form, FormControl, FormGroup, Icon, Modal, Schema } from 'rsuite'
 import firebase from 'firebase/app';
 import { useModuleState } from '../misc/custom-hooks'
-import { database } from '../misc/firebase';
+import { auth, database } from '../misc/firebase';
 
 const {StringType}=Schema.Types;
 
@@ -35,7 +35,10 @@ const CreateChatroomBtn = () => {
 
     const newRoomData={
         ...formValue,
-        createdAt:firebase.database.ServerValue.TIMESTAMP
+        createdAt:firebase.database.ServerValue.TIMESTAMP,
+        admins:{
+            [auth.currentUser.uid]:true,
+        }
     }
 
 
