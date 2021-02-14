@@ -12,12 +12,15 @@ export function transformToArr(snapVal){
 }
 
 export function transformToArrwithId(snapVal){
+
+    
 return snapVal?Object.keys(snapVal).map(roomId=>(
-    {...snapVal[roomId],id:roomId}
+ {...snapVal[roomId],id:roomId})
 )
     
     
-):[]
+:[];
+
 }
 
 export async function getUserUpdate(userId,keyToUpdate,value,db){

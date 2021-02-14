@@ -15,6 +15,7 @@ function assembleMsg(profile,chatId){
             ...(profile.avatar?{avatar:profile.avatar}:{}),
             
         },
+        likeCount:0,
         
         createdAt:firebase.database.ServerValue.TIMESTAMP
     }
